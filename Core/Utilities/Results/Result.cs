@@ -9,10 +9,11 @@ namespace Core.Utilities.Results
 
         public Result(bool success, string message):this(success)
         {
-            Message = message; //constructer yapısında yazılabilir.
+            Message = message;
         }
+
         public Result(bool success)
-        { //overload
+        {
             Success = success;
         }
 
