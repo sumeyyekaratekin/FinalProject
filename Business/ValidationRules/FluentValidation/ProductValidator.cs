@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class ProductValidator :AbstractValidator<Product>
+    public class ProductValidator : AbstractValidator<Product>
     {
         public ProductValidator()
         {
@@ -19,7 +19,7 @@ namespace Business.ValidationRules.FluentValidation
 
         }
 
-        private bool StartWithA(string arg) // bool true dönmesi 
+        private bool StartWithA(string arg)
         {
             return arg.StartsWith("A");
         }
