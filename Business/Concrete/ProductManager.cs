@@ -50,8 +50,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
 
 
-           
-            //23:10 Dersteyiz
+       
         }
 
 
