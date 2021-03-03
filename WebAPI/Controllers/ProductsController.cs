@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         {
             //Swagger
             //Dependency chain --
-            var result =  _productService.GetAll();
+            var result = _productService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -61,7 +61,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
 
     }
 }
