@@ -90,7 +90,6 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
-            //23.10 dersteyiz
         }
     }
 }
