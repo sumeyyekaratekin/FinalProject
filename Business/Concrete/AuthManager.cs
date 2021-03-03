@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Business.Abstract;
-using Business.Constants;
+﻿using Business.Abstract;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
-using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.JWT;
-using Entities.Dtos;
 using Entities.DTOs;
 
 namespace Business.Concrete
@@ -38,7 +32,7 @@ namespace Business.Concrete
                 Status = true
             };
             _userService.Add(user);
-            return new SuccessDataResult<User>(user, Messages.UserRegistered);
+            return new SuccessDataResult<User>(user, "Kayıt oldu");
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -46,22 +40,22 @@ namespace Business.Concrete
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                return new ErrorDataResult<User>("Kullanıcı bulunamadı");
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<User>(Messages.PasswordError);
+                return new ErrorDataResult<User>("Parola hatası");
             }
 
-            return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
+            return new SuccessDataResult<User>(userToCheck, "Başarılı giriş");
         }
 
         public IResult UserExists(string email)
         {
             if (_userService.GetByMail(email) != null)
             {
-                return new ErrorResult(Messages.UserAlreadyExists);
+                return new ErrorResult("Kullanıcı mevcut");
             }
             return new SuccessResult();
         }
@@ -70,37 +64,7 @@ namespace Business.Concrete
         {
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
-            return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
-        }
-
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
-        {
-            throw new NotImplementedException();
+            return new SuccessDataResult<AccessToken>(accessToken, "Token oluşturuldu");
         }
     }
 }
