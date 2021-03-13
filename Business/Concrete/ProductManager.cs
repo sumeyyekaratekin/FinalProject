@@ -31,6 +31,8 @@ namespace Business.Concrete
             _productDal = productDal;
             _categoryService = categoryService;
         }
+
+        //00.25 Dersteyiz
         //Claim
         [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
@@ -58,7 +60,7 @@ namespace Business.Concrete
         [CacheAspect] //key,value
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 4)
+            if (DateTime.Now.Hour == 1)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
@@ -150,5 +152,6 @@ namespace Business.Concrete
 
             return null;
         }
+
     }
 }
